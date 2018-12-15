@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :user
+  belongs_to :area
   belongs_to :prefecture
   
   validates :content, presence: true, length: { maximum: 255 }

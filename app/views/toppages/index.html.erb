@@ -1,24 +1,16 @@
+<% if logged_in? %>
+<p>イベント一覧</p>
+
+<% else %>
 <% content_for :cover do %>
   <div class="cover">
     <div class="cover-inner">
       <div class="cover-contents">
-        <h1>週末に彩りを与えるサッカーイベント</h1>
+        <h1>イベサカ</h1>
+        <div><h1>週末に彩りを与えるサッカーイベント</h1></div>
+        <div><%= link_to '会員登録', signup_path, class: 'btn btn-lg btn-primary' %></div>
       </div>
     </div>
   </div>
 <% end %>
-
-<p>イベント一覧</p>
-
-<% if logged_in? %>
-  <div class="row">
-      <aside class="col-md-4">
-        <%= form_for(@event) do |f| %>
-          <div class="form-group">
-            <%= f.text_area :content, class: 'form-control', rows: 5 %>
-          </div>
-          <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
-        <% end %>
-      </aside>
-  </div>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181212120757) do
+ActiveRecord::Schema.define(version: 20181212123551) do
 
   create_table "areas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "content"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20181212120757) do
     t.datetime "updated_at",       null: false
     t.string   "title"
     t.string   "url"
+    t.integer  "area_id"
+    t.index ["area_id"], name: "index_events_on_area_id", using: :btree
     t.index ["prefecture_id"], name: "index_events_on_prefecture_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 20181212120757) do
     t.boolean  "admin",           default: false, null: false
   end
 
+  add_foreign_key "events", "areas"
   add_foreign_key "events", "prefectures"
   add_foreign_key "events", "users"
   add_foreign_key "prefectures", "areas"

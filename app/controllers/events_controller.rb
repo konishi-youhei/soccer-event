@@ -5,6 +5,8 @@ class EventsController < ApplicationController
   def new
     if logged_in?
       @event = current_user.events.build  # form_for 用
+      @areas = Area.all
+      @prefectures = params[:event] ? Prefecture.where(area_id: params[:event][:area_id]) : []
     end
   end
   
@@ -14,9 +16,10 @@ class EventsController < ApplicationController
       flash[:success] = 'イベントを投稿しました。'
       redirect_to root_url
     else
-      @events = current_user.microposts.order('created_at DESC').page(params[:page])
+      @areas = Area.all
+      @prefectures = Prefecture.where(area_id: params[:event][:area_id])
       flash.now[:danger] = 'イベントの投稿に失敗しました。'
-      render 'toppages/index'
+      render 'events/new'
     end
   end
 
@@ -26,8 +29,10 @@ class EventsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
   
+  private
+  
   def event_params
-    params.require(:event).permit(:content, :charge, :number_of_people, :event_start, :event_end, :title, :url)
+    params.require(:event).permit(:area_id, :prefecture_id, :content, :charge, :number_of_people, :event_start, :event_end, :title, :url)
   end
   
   def correct_user

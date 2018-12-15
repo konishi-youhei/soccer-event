@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   
   resources :areas, only: [:create, :destroy]
   
-  resources :prefecture, only: [:create, :destroy]
-  
+  resources :prefectures, only: [:create, :destroy]
+  post 'prefectures/sort', as: 'sort_prefectures'
   resources :events, only: [:new, :create, :destroy]
 end

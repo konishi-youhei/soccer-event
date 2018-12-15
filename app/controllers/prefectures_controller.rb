@@ -8,6 +8,10 @@ class PrefecturesController < ApplicationController
   def destroy
   end
   
+  def sort
+    @prefectures = Prefecture.where(area_id: params[:area_id])
+  end
+  
   def prefecture_params
     params.require(:prefecture).permit(:content)
   end

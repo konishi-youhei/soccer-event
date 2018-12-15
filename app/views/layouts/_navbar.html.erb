@@ -25,6 +25,9 @@
                 <li>
                   <%= link_to 'マイページ', user_path(current_user) %>
                 </li>
+                <li>
+                  <%= link_to '投稿', new_event_path %>
+                </li>
                 <li role="separator" class="divider"></li>
                 <li>
                   <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>

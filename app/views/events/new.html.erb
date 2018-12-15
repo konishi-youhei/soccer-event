@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-xs-offset-3 col-xs-6">
+    <div class="panel panel-default">
+      <div class="panel-heading"> イベント投稿</div>
+      <div class="panel-body">
+        <%= form_for(@event) do |f| %>
+          <%= render 'layouts/error_messages', model: @event %>
+          
+          <div class="form-group">
+            <%= f.label :title, 'タイトル' %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+          
+          <div class="form-group">
+            <%= f.label :area_id, 'エリア' %>
+            <div><%= f.collection_select :area_id, @areas, :id, :content, { prompt: "選択して下さい" }, class: 'form-control' %></div>
+          </div>
+          
+          <div class="form-group">
+            <%= f.label :prefecture_id, '都道府県' %>
+            <% selected = params[:event][:prefecture_id] if params[:event] %>
+            <div><%= f.collection_select :prefecture_id, @prefectures, :id, :content, { prompt: "選択して下さい" }, class: 'form-control' %></div>
+          </div>
+          
+          <div class="form-group">
+            <%= f.label :event_start, 'イベント開始日時' %>
+  　         <div> <%= f.datetime_select :event_start, class: 'form-control' %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :event_end, 'イベント終了日時' %>
+  　         <div> <%= f.datetime_select :event_end, class: 'form-control' %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :charge, '料金' %>
+            <div class="input-group">
+	            <span class="input-group-addon">￥</span>
+	            <%= f.text_field :charge, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :number_of_people, '募集人数' %>
+	          <%= f.text_field :number_of_people, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :content, 'イベント概要' %>
+	          <%= f.text_field :content, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :url, '申し込みURL' %>
+	          <%= f.text_field :url, class: 'form-control' %>
+          </div>
+          
+          <%= f.submit '投稿', class: 'btn btn-primary btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#event_area_id').change(function() {
+    $.ajax({
+      url: '<%=j sort_prefectures_path %>',
+      type: 'post',
+      data: { area_id: ($(this).val()) }
+    })
+  });
+</script>
