@@ -1,4 +1,4 @@
-class RelationshipsController < ApplicationController
+class LikesController < ApplicationController
   before_action :require_user_logged_in
 
   def create

@@ -9,7 +9,8 @@ class PrefecturesController < ApplicationController
   end
   
   def sort
-    @prefectures = Prefecture.where(area_id: params[:area_id])
+    @prefectures = Prefecture.all
+    @prefectures = @prefectures.where(area_id: params[:area_id]) if params[:area_id].present?
   end
   
   def prefecture_params
