@@ -1,6 +1,13 @@
 <% if logged_in? %>
+<p>エリア</p>
+<% area_id = params[:q][:area_id] if params[:q] %>
+<%= form_tag(root_path, :method => 'get' ) do %>
+  <%= collection_select :q, :area_id, @areas, :id, :content, { include_blank: "選択して下さい", selected: area_id }, class: "form-control" %>
+  <%= submit_tag '検索', :name => nil %>
+<% end %>
 
 <p>イベント一覧</p>
+<%= render 'events/events', events: @events %>
 <% else %>
 <% content_for :cover do %>
   <div class="cover">

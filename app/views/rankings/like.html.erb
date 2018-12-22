@@ -1,7 +1,11 @@
-<div class="border"></div>
+<h1>お気に入り数ランキング</h1>
+<% if @events.present? %>
 <ul class="media-list">
-  <% events.each do |event| %>
+  <% @events.each_with_index do |event, index| %>
     <li class="media">
+      <div class="media-left">
+        <div><p class="text-center"><%= index+1 %>位: <%= @ranking_counts[event.id] %> お気に入り</p></div>
+      </div> 
       <div class="media-left">
         <div><%= link_to event.user.name, user_path(event.user) %></div>
         <img class="media-object img-rounded" src="<%= gravatar_url(event.user, { size: 50 }) %>" alt="">
@@ -32,3 +36,4 @@
     </li>
   <% end %>
 </ul>
+<% end %>

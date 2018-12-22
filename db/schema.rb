@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181212123551) do
+ActiveRecord::Schema.define(version: 20181219121931) do
 
   create_table "areas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "content"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 20181212123551) do
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
+  create_table "likes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_likes_on_event_id", using: :btree
+    t.index ["user_id", "event_id"], name: "index_likes_on_user_id_and_event_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
+  end
+
   create_table "prefectures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "content"
     t.integer  "area_id"
@@ -56,5 +66,7 @@ ActiveRecord::Schema.define(version: 20181212123551) do
   add_foreign_key "events", "areas"
   add_foreign_key "events", "prefectures"
   add_foreign_key "events", "users"
+  add_foreign_key "likes", "events"
+  add_foreign_key "likes", "users"
   add_foreign_key "prefectures", "areas"
 end

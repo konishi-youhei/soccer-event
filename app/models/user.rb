@@ -7,4 +7,20 @@ class User < ApplicationRecord
   has_secure_password
   
   has_many :events
+  
+  has_many :likes
+  has_many :like_events, through: :likes, source: :event
+  
+  def like(event)
+    self.likes.find_or_create_by(event_id: event.id)
+  end
+
+  def unlike(event)
+    like = self.likes.find_by(event_id: event.id)
+    like.destroy if like
+  end
+
+  def like_event?(event)
+    self.like_events.include?(event)
+  end
 end

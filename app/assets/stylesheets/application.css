@@ -31,3 +31,12 @@
   font-size: 12px;
   line-height: 100%
 }
+
+.media-list .media {
+  border-bottom:1px solid; 
+}
+
+.border {
+  border-top:1px solid;
+  margin-bottom: 10px;
+}

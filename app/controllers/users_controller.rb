@@ -23,6 +23,11 @@ class UsersController < ApplicationController
       render :new
     end
   end
+  
+  def likes
+    @user = User.find(params[:id])
+    @like_events = @user.like_events.page(params[:page])
+  end
 
   private
 
