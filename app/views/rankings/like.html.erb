@@ -1,39 +1,45 @@
 <h1>お気に入り数ランキング</h1>
 <% if @events.present? %>
-<ul class="media-list">
-  <% @events.each_with_index do |event, index| %>
-    <li class="media">
-      <div class="media-left">
-        <div><p class="text-center"><%= index+1 %>位: <%= @ranking_counts[event.id] %> お気に入り</p></div>
-      </div> 
-      <div class="media-left">
-        <div><%= link_to event.user.name, user_path(event.user) %></div>
-        <img class="media-object img-rounded" src="<%= gravatar_url(event.user, { size: 50 }) %>" alt="">
-      </div>
-      <div class="media-body">
-        <div>
-          <p><%= event.title %></p>
+<div class="row">
+  <ul class="media-list">
+    <% @events.each_with_index do |event, index| %>
+      <li class="media">
+        <div class="media-left col-xs-1">
+          <div><p class="text-center"><%= index+1 %>位:</p></div>
+        </div> 
+        <div class="media-left">
+          <div><%= link_to event.user.name, user_path(event.user) %></div>
+          <img class="media-object img-rounded" src="<%= gravatar_url(event.user, { size: 50 }) %>" alt="">
         </div>
-        <div>
-          <p><%= event.event_start %>～<%= event.event_end %></p>
+        <div class="media-body">
+          <div>
+            <p><%= event.title %></p>
+          </div>
+          <div>
+            <p><%= event.event_start %>～<%= event.event_end %></p>
+          </div>
+          <div>
+            <p><%= event.area.content %>&nbsp;&nbsp;&nbsp;<%= event.prefecture.content %></p>
+          </div>
+          <div>
+            <p>募集人数&nbsp&nbsp<%= event.number_of_people %>人</p>
+          </div>
+          <div>
+            <p>料金&nbsp&nbsp￥<%= event.charge %></p>
+          </div>
+          <div>
+            <p>概要&nbsp&nbsp<%= event.content %></p>
+          </div>
+          <div>
+          <p>お申し込み公式URL&nbsp&nbsp<%= link_to event.url, event.url %></p>
+        　</div>
+          <div class="col-md-2">
+            <%= render 'likes/like_events_button', event: event %>
+          </div>
+          <div><p>お気に入り数：<%= @ranking_counts[event.id] %></p></div>
         </div>
-        <div>
-          <p><%= event.area.content %>&nbsp;&nbsp;&nbsp;<%= event.prefecture.content %></p>
-        </div>
-        <div>
-          <p>募集人数&nbsp&nbsp<%= event.number_of_people %>人</p>
-        </div>
-        <div>
-          <p>料金&nbsp&nbsp￥<%= event.charge %></p>
-        </div>
-        <div>
-          <p>概要&nbsp&nbsp<%= event.content %></p>
-        </div>
-        <div class="col-md-2">
-          <%= render 'likes/like_events_button', event: event %>
-        </div>
-      </div>
-    </li>
-  <% end %>
-</ul>
+      </li>
+    <% end %>
+  </ul>
+</div>
 <% end %>

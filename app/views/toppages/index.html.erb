@@ -2,13 +2,13 @@
   <div class="row">
     <%= form_tag(root_path, method: :get ) do %>
   
-      <div class=" form-group col-sm-6">
+      <div class=" form-group col-sm-12">
         <% selected_area = params[:event] && params[:event][:area_id].present? ? params[:event][:area_id] : nil %>
         <%= label_tag 'エリアで検索' %>
         <%= collection_select :event, :area_id, @areas, :id, :content, { include_blank: "選択して下さい", selected: selected_area }, class: "form-control" %>
       </div>
       
-      <div class="form-group col-sm-6">
+      <div class="form-group col-sm-12">
         <% selected_prefecture = params[:event] && params[:event][:prefecture_id].present? ? params[:event][:prefecture_id] : nil %> 
         <%= label_tag '県名で検索' %>
         <%= collection_select :event, :prefecture_id, @prefectures, :id, :content, { include_blank: "選択して下さい", selected: selected_prefecture }, class: 'form-control' %>

@@ -25,6 +25,9 @@
         <div>
           <p>概要&nbsp&nbsp<%= event.content %></p>
         </div>
+        <div>
+          <p>お申し込み公式URL&nbsp&nbsp<%= link_to event.url, event.url %></p>
+        </div>
         <div class="col-md-2">
           <%= render 'likes/like_events_button', event: event %>
         </div>
