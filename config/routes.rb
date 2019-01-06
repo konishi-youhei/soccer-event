@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   
   resources :prefectures, only: [:create, :destroy]
   post 'prefectures/sort', as: 'sort_prefectures'
-  resources :events, only: [:new, :create, :destroy]
+  resources :events, only: [:new, :show, :create, :destroy, :edit, :update]
   resources :likes, only: [:create, :destroy]
   get 'rankings/like', to: 'rankings#like'
 end

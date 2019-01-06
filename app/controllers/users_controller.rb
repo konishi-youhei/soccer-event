@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if logged_in?
-      @events = current_user.events.order('created_at DESC')
+      @events = current_user.events.where("event_start > ?", Time.now).order('created_at DESC') 
     end
   end
 

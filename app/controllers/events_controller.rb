@@ -1,6 +1,10 @@
 class EventsController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:destroy,]
+  
+  def show
+    @event = Event.find(params[:id])
+  end
   
   def new
     if logged_in?
@@ -14,7 +18,7 @@ class EventsController < ApplicationController
     @event = current_user.events.build(event_params)
     if @event.save
       flash[:success] = 'イベントを投稿しました。'
-      redirect_to root_url
+      redirect_to @event
     else
       @areas = Area.all
       @prefectures = Prefecture.where(area_id: params[:event][:area_id])
@@ -22,7 +26,26 @@ class EventsController < ApplicationController
       render 'events/new'
     end
   end
-
+  
+  def edit
+    @event = Event.find(params[:id])
+    @areas = Area.all
+    @prefectures = params[:event] ? Prefecture.where(area_id: params[:event][:area_id]) : Prefecture.where(area_id: @event.area_id)
+  end
+  
+  def update
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      flash[:success] = 'イベントを更新しました。'
+      redirect_to @event
+    else
+      @areas = Area.all
+      @prefectures = Prefecture.where(area_id: params[:event][:area_id])
+      flash.now[:danger] = 'イベントの更新に失敗しました。'
+      render 'events/new'
+    end
+  end
+    
   def destroy
     @event.destroy
     flash[:success] = 'イベントを削除しました。'

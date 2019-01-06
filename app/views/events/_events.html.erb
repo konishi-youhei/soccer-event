@@ -8,7 +8,7 @@
       </div>
       <div class="media-body">
         <div>
-          <p><%= event.title %></p>
+          <p><%= link_to event.title, event_path(event) %></p>
         </div>
         <div>
           <p><%= event.event_start %>～<%= event.event_end %></p>
@@ -27,9 +27,6 @@
         </div>
         <div>
           <p>お申し込み公式URL&nbsp&nbsp<%= link_to event.url, event.url %></p>
-        </div>
-        <div class="col-md-2">
-          <%= render 'likes/like_events_button', event: event %>
         </div>
       </div>
     </li>
