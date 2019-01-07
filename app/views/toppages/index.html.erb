@@ -22,9 +22,6 @@
   
   <p>イベント一覧</p>
   <%= render 'events/events', events: @events, flug: nil %>
-  
-  <p>終了済みイベント一覧</p>
-  <%= render 'events/events', events: @finished_events, flug: 'finished' %>
 
 <% else %>
   <% content_for :cover do %>
